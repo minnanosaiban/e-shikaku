@@ -31,6 +31,7 @@ theme:
   variant: classic # Zensical で Material 風の見た目にする指定（MkDocs では無視される）
   language: ja
   font: false # Noto Sans JP を note.css で指定する
+  favicon: img/favicon.png
   palette:
     - scheme: default
       primary: white
