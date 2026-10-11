@@ -64,7 +64,7 @@
 .md-typeset .arithmatex { overflow-x: auto; overflow-y: hidden; }
 /* スマホでは Material が左右 -16px の全幅にするため、式の左端が本文より外に出る。本文の左端に揃える */
 @media (max-width: 767px) {
-  .md-typeset .arithmatex { margin-left: 0; margin-right: 0; }
+  .md-typeset div.arithmatex { margin-left: 0 !important; margin-right: 0 !important; }
 }
 
 /* ---------- 囲み（要点・動かしてみる）：色付きの枠とアイコンをやめ、細い左罫だけにする ---------- */
