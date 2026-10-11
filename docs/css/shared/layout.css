@@ -1,0 +1,98 @@
+/* minna-design / layout.css — 3サイト共通のページ枠（本文カラム余白・サイドバー・フッター注記）。
+   tokens.css・base.css の後に読み込む。サイト側では編集しない（編集は minna-design）。 */
+
+/* 画面余白・タブ・縦スクロールバー・サイドバーのテキスト・センタリング */
+/* 画面余白 */
+/*
+.md-main__inner {
+  display: flex;
+  height: 100%;
+  margin-top: 1.5rem;
+}
+*/
+.md-main__inner {
+  display: flex;
+  height: 100%;
+  margin-top: 0.5rem;  /* トップの余白を狭くする */
+}
+
+/*
+.md-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+*/
+/*
+.md-content__inner {
+  margin: 0 .8rem 1.2rem;
+  padding-top: .6rem;
+}
+*/
+.md-content__inner {
+  padding-top: 0rem; 
+}
+
+/* 縦スクロールバー */
+.md-sidebar__inner {
+  overflow: hidden;
+}
+
+.md-sidebar__scrollwrap {
+  scrollbar-color: #0000;
+  scrollbar-width: 1px;
+}
+
+/* サイドバーのテキスト（色・太さは shared/base.css） */
+.md-sidebar--secondary {
+  overflow-wrap: normal;  /* 単語の途中での改行を抑制 */
+  white-space: nowrap;    /* テキストの改行を抑える */
+}
+
+/* フッター注記 */
+.md-footer-note {
+  padding: 1rem 1.2rem 2rem;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  opacity: 0.75;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  max-width: 64rem;          /* 広い画面で横に広がりすぎないよう中央にまとめる */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.md-footer-note__section {
+  min-width: 220px;
+  flex: 1;
+}
+
+.md-footer-note__heading {
+  font-weight: 600;
+  margin: 0.4rem 0 0.2rem !important;
+}
+
+.md-footer-note__sub {
+  font-weight: 500;
+  margin: 0.7rem 0 0.1rem !important;
+}
+
+.md-footer-note ul {
+  margin: 0 !important;
+  padding-left: 1.2em;
+}
+
+.md-footer-note li {
+  margin: 0.1rem 0 !important;
+}
+
+.md-footer-note a {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 768px) {
+  .md-footer-note {
+    flex-direction: column;
+    gap: 0;
+  }
+}
