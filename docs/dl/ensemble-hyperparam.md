@@ -151,6 +151,7 @@ $$
 - 損失は、通常の交差エントロピーと、**一様分布との交差エントロピー**の重み付き和になる。正解のロジットを無限に大きくする必要がなくなる。
 - 誤差を $\epsilon$ だけ他クラスに均等配分する別の書き方（正解 $1-\epsilon$、他の $K-1$ クラスに $\epsilon/(K-1)$ ずつ）もあり、$\epsilon$ の意味がわずかに違う。
 - Inception-v3、Transformer（$\epsilon=0.1$）で使われる。→ [Transformer](transformer.md)
+- 損失関数としての詳しい扱い（流儀 (a)(b) の比較）は [多層パーセプトロン・出力層と損失関数](mlp-loss.md#label-smoothing)、[損失関数まとめ](../math/loss.md)。
 
 ---
 
