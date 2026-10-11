@@ -1,0 +1,93 @@
+/* minna-design / tokens.css — 3サイト共通のデザイントークン（正本）
+   色・余白・文字サイズの「値」だけを定義する。部品の見た目は base.css 側。
+   方針：紺1色＋無彩色グレー。警告赤は「警告」のときだけ。ブランド色（ENEOS橙など）は共通に入れない。
+   各サイトのリポジトリ内で直接編集しない（編集はここ→ sync.bat で配る）。 */
+
+:root {
+  /* ---- 色（スキーム非依存の素の値） ---- */
+  --typeset-color-2: #003682;    /* 紺＝唯一のメインカラー（ライト） */
+  --typeset-color-2-d: #4D8BCC;  /* 紺のダークモード版 */
+
+  /* ---- 余白スケール（1rem=20px）。新しい余白はこの段に乗せ、独自値を作らない ---- */
+  --sp-1: 1rem;   /* 段落内の細かい区切り */
+  --sp-2: 2rem;   /* 標準の段落間 */
+  --sp-4: 4rem;   /* セクション内の区切り（中） */
+  --sp-6: 6rem;   /* セクション間（大） */
+  --sp-8: 8rem;   /* ページ内最大（h2の上など） */
+  --sp-section: var(--sp-6);   /* モバイルでは 3rem に圧縮 */
+  --sp-h2-top: var(--sp-8);    /* モバイルでは 3rem に圧縮 */
+
+  /* ---- 文字サイズ（大きい文字=rem／本文・小=px固定） ---- */
+  --fs-h1: 2.4rem;
+  --fs-h2: 1.6rem;
+  --fs-large: 1.28rem;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xsmall: 12px;
+  --fw-light: 300;   /* 見出しは太字にせず、サイズで立てる */
+  --fw-normal: 400;
+  --lh-body: 2;
+
+  --md-text-font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  --line-width: 2px;  /* 例外的に引く線（左罫）の太さ。囲みは罫線で囲まず、左罫か面の濃淡で表す */
+}
+
+@media only screen and (max-width: 767px) {
+  :root {
+    --sp-section: 3rem;
+    --sp-h2-top: 3rem;
+  }
+}
+
+[data-md-color-scheme="default"] {
+  --md-typeset-color: #08131a !important;      /* 本文 */
+  --md-typeset-bg-color: #FFFFFF;
+  --md-default-bg-color: #f7f8fa;              /* ページ背景（純白だと目が疲れるため薄いグレー） */
+  --md-primary-fg-color: #e5e7ea;              /* ヘッダー背景 */
+  --surface-gray: #eef1f5;                     /* 面の濃淡で区切るための薄い青みグレー */
+  --md-typeset-a-color: var(--md-typeset-color);
+  --md-accent-fg-color: #2E404d;
+  --md-footer-bg-color--dark: hsla(var(--md-hue), 15%, 8%, 1);
+  --md-main-color: var(--typeset-color-2);
+  --md-strong-color: var(--typeset-color-2);
+  --md-link-color: var(--typeset-color-2);
+  --md-link-color-faint: rgba(0, 54, 130, 0.4);
+  --md-link-hover-color: #1a5fb4;
+  --md-card-border: #aab0b8;                   /* 無彩色の線（罫線が要る場面だけ） */
+  --md-card-border-soft: rgba(0, 0, 0, 0.16);
+  --md-warn-red: #C70025;                      /* 警告赤 */
+  --muted: #5f6b76;                            /* 補足の文字 */
+  --surface: #ffffff;                         /* 図・カードなど、ページ背景より一段手前の面 */
+  --line: #d5d9de;                            /* 細い区切り線（表の横罫・図の枠） */
+  --line-strong: #aab0b8;                     /* 少し濃い線（左罫・図の辺） */
+}
+
+[data-md-color-scheme="slate"] {
+  --md-typeset-color: #E0E0E0;
+  --md-typeset-bg-color: hsla(225, 15%, 14%, 1);
+  --md-primary-fg-color: hsla(var(--md-hue), 15%, 8%, 1);
+  --surface-gray: #16263c;
+  --md-typeset-a-color: var(--md-typeset-color);
+  --md-accent-fg-color: #2E404d;
+  --md-footer-bg-color--dark: hsla(var(--md-hue), 15%, 8%, 1);
+  --md-main-color: var(--typeset-color-2-d);
+  --md-strong-color: var(--typeset-color-2-d);
+  --md-link-color: var(--typeset-color-2-d);
+  --md-link-color-faint: rgba(77, 139, 204, 0.4);
+  --md-link-hover-color: #7eb8e8;
+  --md-card-border: rgba(255, 255, 255, 0.22);
+  --md-card-border-soft: rgba(255, 255, 255, 0.20);
+  --md-warn-red: #f2545b;
+  --muted: #9aa4ae;
+  --surface: hsla(225, 15%, 15%, 1);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.32);
+}
+
+/* ダーク：ヘッダー・タブ背景を統一 */
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: #0d1b2a !important;
+}

@@ -35,7 +35,7 @@
 - **git commit / push、GitHub リポジトリの作成・公開**は、ユーザーに確認してから行う。
 - `note_exam/` と `note_qiita/` の内容（本文・画像・リンク）を、そのまま公開ページへ貼らない。第3者の図・文章、OneDrive や Colab の個人用リンクが多数含まれている。
 - 他サイトの図・文章を転載しない（引用元付きでも不可）。
-- `C:\minnanosaiban\tomo` など他のリポジトリを変更しない。tomo のファイル（`docs/css/01-color.css` など）は配色の参照にだけ使う。
+- `C:\minnanosaiban\tomo` など他のリポジトリを変更しない。配色は共通デザイン [minna-design](https://github.com/minnanosaiban/minna-design) のトークンを使う。`docs/css/shared/` はそこから `sync.bat` で同期したコピーなので、直接編集しない（編集は minna-design 側）。`base.css` は文字サイズの体系が違うため取り込まず、`tokens.css` だけを読み込んでいる。
 
 ---
 

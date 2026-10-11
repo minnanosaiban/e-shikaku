@@ -1,41 +1,30 @@
 /* ============================================================
    E資格 動く数式ノート
-   配色は tomo（minnanosaiban.github.io/tomo/）に合わせる：
+   配色は共通デザイン（minna-design。tomo・hotline と共通）に合わせる：
    紺1色＋無彩色のグレー。装飾は最小限にし、罫線より余白と面の濃淡で区切る。
    ============================================================ */
 
 :root {
   --md-text-font: "Noto Sans JP";
-  --main: #003682;      /* 紺＝唯一の色。強調・逆伝播・光らせる要素 */
 }
 
+/* 色・面・線・補足文字の値は shared/tokens.css（minna-design）。ここに残すのは、このサイト固有の上書きだけ。
+   --main（紺＝唯一の色）は共通トークン --md-main-color の別名（ライト #003682／ダーク #4D8BCC）。
+   スキームの属性は body にあるので、別名もスキーム側で定義する。 */
 [data-md-color-scheme="default"] {
-  --md-typeset-color: #08131a;
-  --md-default-bg-color: #f7f8fa;    /* 純白より目が疲れにくい薄いグレー */
-  --md-primary-fg-color: #e5e7ea;    /* ヘッダー */
+  --main: var(--md-main-color);
+  --md-typeset-a-color: var(--main);
   --md-primary-bg-color: #08131a;    /* ヘッダーの文字 */
   --md-accent-fg-color: #1a5fb4;     /* ホバー */
-  --md-typeset-a-color: var(--main);
-  --surface: #ffffff;                /* 動く図などの面 */
-  --surface-gray: #eef1f5;           /* 薄い青みグレー（行のホバー・見出し帯） */
-  --line: #d5d9de;                   /* 罫線・辺 */
-  --line-strong: #aab0b8;
-  --muted: #5f6b76;                  /* 補足の文字 */
 }
 
 [data-md-color-scheme="slate"] {
-  --main: #4d8bcc;
-  --md-typeset-color: #e0e0e0;
+  --main: var(--md-main-color);
+  --md-typeset-a-color: var(--main);
   --md-default-bg-color: hsla(225, 15%, 12%, 1);
   --md-primary-fg-color: #0d1b2a;
   --md-primary-bg-color: #e0e0e0;
   --md-accent-fg-color: #7eb8e8;
-  --md-typeset-a-color: var(--main);
-  --surface: hsla(225, 15%, 15%, 1);
-  --surface-gray: #16263c;
-  --line: rgba(255, 255, 255, 0.16);
-  --line-strong: rgba(255, 255, 255, 0.32);
-  --muted: #9aa4ae;
 }
 
 /* ---------- 文字 ---------- */

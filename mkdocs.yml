@@ -12,6 +12,7 @@ nav:
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
   - https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap
+  - css/shared/tokens.css   # 共通（minna-design から sync.bat で同期。直接編集しない）
   - css/note.css
 
 extra_javascript:
