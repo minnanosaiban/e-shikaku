@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "e-shikaku",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "mkdocs", "serve", "-f", "C:/minnanosaiban/e-shikaku/mkdocs.yml", "-a", "127.0.0.1:8001"],
+      "runtimeExecutable": ".venv/Scripts/zensical.exe",
+      "runtimeArgs": ["serve", "-a", "127.0.0.1:8001"],
       "port": 8001
     }
   ]

@@ -27,6 +27,7 @@ extra_javascript:
 
 theme:
   name: material
+  variant: classic # Zensical で Material 風の見た目にする指定（MkDocs では無視される）
   language: ja
   font: false # Noto Sans JP を note.css で指定する
   palette:

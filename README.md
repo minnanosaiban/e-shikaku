@@ -1,6 +1,6 @@
 # e-shikaku（仮）
 
-E資格の範囲を、数式の要点と「数式・図・数値が連動して動く図」でまとめたノートです。MkDocs Material 製で、GitHub Pages での公開を想定しています。
+E資格の範囲を、数式の要点と「数式・図・数値が連動して動く図」でまとめたノートです。Zensical（Material for MkDocs の後継）で作り、GitHub Pages で公開しています。MkDocs ＋ Material でもビルドできます。
 
 ## 方針
 
@@ -34,4 +34,17 @@ note_qiita/ note_exam/ 移行元の資料。Git 管理外
 
 ## 動かし方
 
-`serve.bat`（`http://127.0.0.1:8001/e-shikaku/`）
+初回だけ、このフォルダで仮想環境を作ります。
+
+```
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+```
+
+| 何をする | 方法 |
+|---|---|
+| ローカルで見る | `serve.bat`（`http://127.0.0.1:8001/e-shikaku/`） |
+| ビルドだけする | `build.bat` |
+| **公開する** | **`deploy.bat`**（ビルド確認 → コミット → push。push すると GitHub Actions がビルドして公開します） |
+
+公開の仕組みは `.github/workflows/pages.yml` です（GitHub の Settings → Pages → Source を「GitHub Actions」にしておきます）。MkDocs でビルドする予備の手順は、`requirements-mkdocs.txt` にあります。

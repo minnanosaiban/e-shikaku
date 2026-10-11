@@ -12,7 +12,8 @@
   - `01-math.md` 数学編（線形代数・確率統計・情報理論・最適化・損失関数）
   - `02-ml.md` 機械学習編
   - `03-dl.md` 深層学習編
-- MkDocs Material ＋ KaTeX。GitHub Pages で公開する想定（`site_url: https://minnanosaiban.github.io/e-shikaku/`）。
+- **Zensical**（Material for MkDocs の後継）＋ KaTeX。`mkdocs.yml` をそのまま読ませ、`theme.variant: classic` で Material 風の見た目にしている（指定を外すと modern になり、囲みに背景色が付くなど `note.css` と合わなくなる）。GitHub Pages で公開（`site_url: https://minnanosaiban.github.io/e-shikaku/`）。
+- MkDocs ＋ Material（`requirements-mkdocs.txt`）でもビルドできる（予備。Material は 2026-11-05 でサポート終了）。
 
 ### 方針（ユーザーが選んだ「動くまとめノート型」）
 
@@ -147,17 +148,24 @@ $$
 
 ### 表示の確認
 
-`mkdocs serve` はこの環境ではファイルの変更を検知しないことがある。確認のたびにビルドし直す。
+初回だけ、このフォルダで仮想環境を作る。
 
 ```bash
-cd /c/minnanosaiban/e-shikaku && python -m mkdocs build -q && python -m http.server 8002 -d site --bind 127.0.0.1
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
 ```
 
-（バックグラウンドで起動し、内蔵ブラウザで `http://localhost:8002/...` を開く。ブラウザのキャッシュで古い JS が出るときは、再読み込みを強制する。確認が終わったらサーバーを止め、`site/` は消してよい。）
+ビルドして、静的に配信して確かめる（ファイルの変更が自動で反映されない環境があるため、確認のたびにビルドし直す）。
+
+```bash
+cd /c/minnanosaiban/e-shikaku && PYTHONUTF8=1 .venv/Scripts/zensical.exe build --clean && python -m http.server 8002 -d site --bind 127.0.0.1
+```
+
+（サーバーはバックグラウンドで起動し、内蔵ブラウザで `http://localhost:8002/...` を開く。ブラウザのキャッシュで古い JS が出るときは、再読み込みを強制する。確認が終わったらサーバーを止め、`site/` は消してよい。`serve.bat` は Zensical の開発サーバー `http://127.0.0.1:8001/e-shikaku/` を起動する。）
 
 チェックすること：
 
-- [ ] ビルドで警告（リンク切れなど）が出ていない
+- [ ] ビルドで `No issues found` と出ている（見出しへのリンク切れは警告になる。日本語の見出しの ID は `_2` のようになるので、ページ内リンクを使う見出しには `## 見出し {#english-id}` と ID を明示する）
 - [ ] コンソールにエラーがない
 - [ ] 数式がすべて KaTeX で描画されている（生の `$` や `\frac` が見えていない）
 - [ ] 動く図の文字と線が重なっていない

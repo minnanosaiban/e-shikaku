@@ -1,0 +1,4 @@
+# Fallback: the site also builds with MkDocs + Material (python -m mkdocs build).
+# Material for MkDocs reaches end of life on 2026-11-05, and MkDocs 2.0 is not compatible, so stay below 2.
+mkdocs==1.6.1
+mkdocs-material==9.7.1

@@ -1,9 +1,13 @@
-mkdocs
-mkdocs-material
-mkdocs-minify-plugin        # コードの最小化（HTML/CSS/JS圧縮）
-pymdown-extensions          # 数式・絵文字・注釈などの高度なMarkdown拡張
-mkdocs-git-revision-date-localized-plugin  # 最終更新日を自動表示
-mkdocs-glightbox           # 画像をクリックで拡大表示
-mkdocs-heti                # 日本語の文字組み（タイポグラフィ）を美しく整える
-mkdocs-include-dir-to-nav  # フォルダ構造を自動的にナビゲーションに反映
-mkdocs-macros-plugin       # 変数や関数を使えるようにするカスタム処理用
+# Main build tool: Zensical (the successor of Material for MkDocs). Every package is pinned (pip freeze),
+# so GitHub Actions builds exactly what was checked locally.
+zensical==0.0.69
+click==8.5.0
+deepmerge==3.0.1
+Jinja2==3.1.6
+Markdown==3.11
+MarkupSafe==3.0.4
+pathspec==1.1.1
+Pygments==2.21.0
+pymdown-extensions==12.2
+PyYAML==6.0.3
+tomli==2.5.0

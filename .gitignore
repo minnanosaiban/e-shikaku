@@ -1,5 +1,7 @@
 site/
 __pycache__/
+.venv/
+.cache/
 
 # 移行元の資料（手元の参考用。公開しない）
 note_exam/
