@@ -1,0 +1,185 @@
+/* minna-design / tabs.css — ヘッダーのタブとドロップダウン、サイドバーのグループ区切り（ーアプリー 等）。
+   tomo・hotline・kessan-kabuka・e-shikaku で共通。テンプレート側は各サイトの overrides/partials/tabs-item.html・header.html。
+   tokens.css・base.css・layout.css（・components.css）の後、parts.css の前に読み込む。サイト側では編集しない（編集は minna-design）。 */
+
+/* モバイルでもタブを常時表示（隠さない） */
+@media screen and (max-width: 76.234375em) {
+  .md-tabs {
+    display: block;
+    background-color: var(--md-primary-fg-color);
+  }
+  .md-tabs__list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .md-tabs__list::-webkit-scrollbar {
+    display: none;
+  }
+  .md-tabs__item {
+    flex-shrink: 0;
+    height: 2.4rem;
+  }
+  .md-tabs__link {
+    font-size: 0.7rem;
+    margin-top: 0.6rem;
+  }
+  .md-tabs__link--active {
+    text-underline-offset: 8px !important;
+  }
+}
+
+/* タブのドロップダウン（「裁判文書公開」等、子ページが複数あるタブ）。
+   Zensical の既定テンプレートは子が複数あっても最初の1件しかタブバーに出さないため、
+   overrides/partials/tabs-item.html で子が2件以上のときだけ描く分岐を追加した。
+   2026-09-22: 独自クリックJSでの開閉は、開発機では動いたがユーザーの実機Chromeでは
+   反応しなかった（原因不明。拡張機能・シークレットウィンドウでも再現）。
+   原因を特定できないまま何度も直すよりも確実な方法へ、と判断し、
+   このサイトの書面一覧などで実績のある `<details>/<summary>`（ブラウザが開閉を担う、
+   JS不要のネイティブな仕組み）に作り直した。custom.js は「他が開いていたら閉じる」等の
+   補助のみで、開閉そのものには関与しない（そのJSが効かなくても核心の機能は動く）。
+   Zensical既定の .md-tabs__list は横スクロール用に overflow-x:auto を持つが、
+   CSSの仕様上「x が visible でなければ y も auto 扱いになる」ため、
+   overflow-yだけ上書きしても効かず、ドロップダウンが縦方向にクリップされて消える
+   （実機で発覚）。.md-tabs と .md-tabs__list 自体の overflow/contain を外して解決。
+   トリガー<summary>の当たり判定がタブ行全体をきちんと覆うよう、Material既定の
+   .md-tabs__item が持つ高さ(2.4rem)とパディング(左右.6rem)を <li> から <summary> 側へ
+   移し、<summary> を height:100%・横は通常のflowのままにしている
+   （<li>の幅の計算は今までどおり<summary>の中身に任せる。position:absoluteで
+   広げる方式は、要素が通常のflowから外れて<li>の幅計算に寄与しなくなり、
+   タブ行全体が潰れて隣のタブと文字が重なる事故になったため採らない）。 */
+/* overflow は必ずショートハンドで上書きする（x/yを個別に指定すると、CSSの仕様上
+   「片方が visible でなければもう片方も自動的に non-visible 扱いになる」ため、
+   例えば overflow-x:auto; overflow-y:visible; と書いても overflow-y は結局 auto になり、
+   ドロップダウンが縦方向にクリップされて消える。実機で2回再発したハマりどころ）。
+   モバイル用の横スクロール（上の「モバイルでもタブを常時表示」の overflow-x:auto）より
+   後に書いて勝たせる必要があるため、この位置に置く。 */
+.md-tabs,
+.md-tabs__list {
+  overflow: visible !important;
+  contain: none !important;
+}
+
+.md-tabs__item--dropdown {
+  position: relative;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.md-tabs__dropdown-details {
+  height: 100%;
+}
+
+.md-tabs__dropdown-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  height: 100%;
+  padding: 0 0.6rem;
+  margin-top: 0 !important;   /* Material既定の.md-tabs__linkのmargin-topを打ち消し、height:100%の起点をタブ行の上端に固定 */
+  box-sizing: border-box;
+  cursor: pointer;
+  list-style: none;
+}
+
+.md-tabs__dropdown-details > summary::-webkit-details-marker {
+  display: none;   /* 既定の三角マーカーを消す（への字アイコンで代替） */
+}
+
+/* 「裁判文書公開」等のドロップダウンタブは、上の summary の height:100% で縦中央寄せにしているが、
+   隣の通常タブ（モバイル用に margin-top で少し上寄りに揃えている。上の「モバイルでもタブを常時表示」）
+   より2〜3px下にずれる。モバイル幅だけ下に余白を作って中央位置を合わせる
+   （実機のフォントサイズ・行送りで検証した値。この定義はカスケードの都合で
+   上の .md-tabs__dropdown-details > summary の padding より後ろに置く必要がある） */
+@media screen and (max-width: 76.234375em) {
+  .md-tabs__dropdown-details > summary {
+    padding-bottom: 0.29rem;
+  }
+}
+
+.md-tabs__caret {
+  font-size: 0.6rem;
+  transition: transform 0.15s ease;
+}
+
+.md-tabs__dropdown-details[open] .md-tabs__caret {
+  transform: rotate(180deg);
+}
+
+.md-tabs__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+  min-width: 6.5rem;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--md-default-bg-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+}
+
+.md-tabs__dropdown-link {
+  display: block;
+  position: relative;      /* つまみ(::before)より前面に出す */
+  z-index: 1;
+  padding: 7px 10px;
+  font-size: 0.7rem;
+  color: var(--md-typeset-color) !important;
+  text-decoration: none !important;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.md-tabs__dropdown-link:hover,
+.md-tabs__dropdown-link--active {
+  background: var(--surface-gray);
+  color: var(--md-main-color) !important;
+}
+
+/* サイドバー・タブ：1つのタブの中を複数のグループに分けるとき、ナビに「ーアプリー」「ーツールー」の区切りを入れる。
+   上部タブのドロップダウン（.md-tabs__dropdown-group）とサイドバーの両方。 */
+
+.md-tabs__dropdown-group {
+  padding: 8px 10px 3px;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--md-default-fg-color--light);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.md-tabs__dropdown-group:not(:first-child) {
+  margin-top: 4px;
+}
+
+/* サイドバー：技術解説の中のグループ（アプリ／ツール／ウェブサイト）を、常に開いた区切り見出し ーアプリー にする。
+   外側のセクション（技術解説）には効かせない（入れ子の内側だけ）。 */
+.md-nav--primary .md-nav__item--section .md-nav__item--section > label.md-nav__link {
+  justify-content: center;
+  margin-top: 0.6rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--md-default-fg-color--light);
+  pointer-events: none;
+  cursor: default;
+}
+
+.md-nav--primary .md-nav__item--section .md-nav__item--section > label.md-nav__link .md-ellipsis::before,
+.md-nav--primary .md-nav__item--section .md-nav__item--section > label.md-nav__link .md-ellipsis::after {
+  content: "ー";
+}
+
+.md-nav--primary .md-nav__item--section .md-nav__item--section > label.md-nav__link .md-nav__icon {
+  display: none;
+}
+
+.md-nav--primary .md-nav__item--section .md-nav__item--section > .md-nav {
+  display: block;
+  visibility: visible;
+  max-height: none;
+  opacity: 1;
+  grid-template-rows: 1fr;
+}

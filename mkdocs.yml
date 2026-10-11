@@ -15,9 +15,11 @@ extra_css:
   - css/shared/tokens.css   # 共通（minna-design から sync.bat で同期。直接編集しない）
   - css/shared/base.css
   - css/shared/layout.css
+  - css/shared/tabs.css
   - css/note.css
 
 extra_javascript:
+  - js/tabs.js # タブのドロップダウン（他を閉じる／外側クリックで閉じる）の補助
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
   - js/katex-init.js
@@ -32,6 +34,7 @@ theme:
   name: material
   variant: classic # Zensical で Material 風の見た目にする指定（MkDocs では無視される）
   language: ja
+  custom_dir: overrides # ヘッダー・タブの部品の上書き（tomo と同じ）
   font: false # Noto Sans JP を note.css で指定する
   favicon: img/favicon.png
   palette:
@@ -39,15 +42,17 @@ theme:
       primary: white
       accent: indigo
       toggle:
-        icon: material/brightness-7
+        icon: bootstrap/brightness-high
         name: ダークモードに切り替えます
     - scheme: slate
       primary: black
       accent: indigo
       toggle:
-        icon: material/brightness-4
+        icon: bootstrap/moon-stars-fill
         name: ライトモードに切り替えます
   features:
+    - navigation.tabs # ヘッダーにタブを出す（tomo と同じ）
+    - navigation.tabs.sticky # スクロールしてもタブを固定
     - navigation.sections
     - navigation.expand
     - navigation.top
