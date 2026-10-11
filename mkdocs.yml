@@ -32,6 +32,7 @@ theme:
   name: material
   variant: classic # Zensical で Material 風の見た目にする指定（MkDocs では無視される）
   language: ja
+  custom_dir: overrides # ヘッダーの部品の上書き（サイト名を常にリンクで出す。tomo と同じ）
   font: false # Noto Sans JP を note.css で指定する
   favicon: img/favicon.png
   palette:
