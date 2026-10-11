@@ -232,3 +232,7 @@
 @media (max-width: 600px) {
   .ew-row { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; }
 }
+
+/* ヘッダー・メニューのロゴは出さない（サイト名だけにする） */
+.md-header__button.md-logo,
+.md-nav__button.md-logo { display: none; }
