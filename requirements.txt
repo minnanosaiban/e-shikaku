@@ -1,0 +1,9 @@
+mkdocs
+mkdocs-material
+mkdocs-minify-plugin        # コードの最小化（HTML/CSS/JS圧縮）
+pymdown-extensions          # 数式・絵文字・注釈などの高度なMarkdown拡張
+mkdocs-git-revision-date-localized-plugin  # 最終更新日を自動表示
+mkdocs-glightbox           # 画像をクリックで拡大表示
+mkdocs-heti                # 日本語の文字組み（タイポグラフィ）を美しく整える
+mkdocs-include-dir-to-nav  # フォルダ構造を自動的にナビゲーションに反映
+mkdocs-macros-plugin       # 変数や関数を使えるようにするカスタム処理用

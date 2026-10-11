@@ -1,0 +1,72 @@
+site_name: E資格 動く数式ノート
+site_description: E資格（JDLA Deep Learning for ENGINEER）の範囲を、数式の要点と、数式・図・数値が連動して動く図でまとめたノートです。
+site_url: https://minnanosaiban.github.io/e-shikaku/
+site_dir: site
+
+nav:
+  - ホーム: index.md
+  - 深層学習:
+      - 活性化関数: dl/activation.md
+      - 誤差逆伝播法: dl/backprop.md
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
+  - https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap
+  - css/note.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
+  - js/katex-init.js
+  - js/widgets/core.js       # 動く図の共通部品（他の widgets より先に読む）
+  - js/widgets/gate.js
+  - js/widgets/neuron.js
+  - js/widgets/vanishing.js
+  - js/widgets/activation.js
+  - js/widgets/temperature.js
+
+theme:
+  name: material
+  language: ja
+  font: false # Noto Sans JP を note.css で指定する
+  palette:
+    - scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: ダークモードに切り替えます
+    - scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: ライトモードに切り替えます
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer # ページ下部に「前へ・次へ」
+    - toc.follow
+    - search.highlight
+
+plugins:
+  - search:
+      lang: ja
+
+validation:
+  links:
+    not_found: warn
+
+markdown_extensions:
+  - md_in_html
+  - attr_list
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.arithmatex: # 数式は KaTeX で描画する（js/katex-init.js）
+      generic: true

@@ -1,0 +1,226 @@
+/* ============================================================
+   E資格 動く数式ノート
+   配色は tomo（minnanosaiban.github.io/tomo/）に合わせる：
+   紺1色＋無彩色のグレー。装飾は最小限にし、罫線より余白と面の濃淡で区切る。
+   ============================================================ */
+
+:root {
+  --md-text-font: "Noto Sans JP";
+  --main: #003682;      /* 紺＝唯一の色。強調・逆伝播・光らせる要素 */
+}
+
+[data-md-color-scheme="default"] {
+  --md-typeset-color: #08131a;
+  --md-default-bg-color: #f7f8fa;    /* 純白より目が疲れにくい薄いグレー */
+  --md-primary-fg-color: #e5e7ea;    /* ヘッダー */
+  --md-primary-bg-color: #08131a;    /* ヘッダーの文字 */
+  --md-accent-fg-color: #1a5fb4;     /* ホバー */
+  --md-typeset-a-color: var(--main);
+  --surface: #ffffff;                /* 動く図などの面 */
+  --surface-gray: #eef1f5;           /* 薄い青みグレー（行のホバー・見出し帯） */
+  --line: #d5d9de;                   /* 罫線・辺 */
+  --line-strong: #aab0b8;
+  --muted: #5f6b76;                  /* 補足の文字 */
+}
+
+[data-md-color-scheme="slate"] {
+  --main: #4d8bcc;
+  --md-typeset-color: #e0e0e0;
+  --md-default-bg-color: hsla(225, 15%, 12%, 1);
+  --md-primary-fg-color: #0d1b2a;
+  --md-primary-bg-color: #e0e0e0;
+  --md-accent-fg-color: #7eb8e8;
+  --md-typeset-a-color: var(--main);
+  --surface: hsla(225, 15%, 15%, 1);
+  --surface-gray: #16263c;
+  --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.32);
+  --muted: #9aa4ae;
+}
+
+/* ---------- 文字 ---------- */
+.md-typeset { font-weight: 400; }
+.md-typeset h1 { font-weight: 300; color: var(--md-typeset-color); }
+.md-typeset h2 { font-weight: 400; margin-top: 2.4em; }
+.md-typeset h3 { font-weight: 400; }
+.md-typeset strong { font-weight: 500; color: var(--main); }
+.md-typeset hr { display: none; } /* 区切りは見出しの余白で十分 */
+
+.kw {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: -0.6rem;
+}
+
+/* 数式ブロックが横にはみ出すときはスクロール */
+.md-typeset .arithmatex { overflow-x: auto; overflow-y: hidden; }
+
+/* ---------- 囲み（要点・動かしてみる）：色付きの枠とアイコンをやめ、細い左罫だけにする ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border: none;
+  border-left: 2px solid var(--line-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.78rem;
+  padding: 0.1rem 0 0.1rem 1rem;
+  margin: 1.4em 0;
+}
+.md-typeset .admonition,
+.md-typeset details { border-color: var(--line-strong) !important; } /* 種類ごとの色を打ち消す */
+.md-typeset .admonition.abstract { border-color: var(--main) !important; }
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background: transparent !important;
+  border: none;
+  padding: 0 !important;
+  margin: 0 0 0.2rem !important;
+  font-weight: 500;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.md-typeset .admonition-title::before,
+.md-typeset summary::before { display: none; }
+.md-typeset .admonition > :last-child { margin-bottom: 0.4rem; }
+
+/* ---------- 表：罫線は横だけ、見出し行は薄いグレー ---------- */
+.md-typeset table:not([class]) {
+  border: none;
+  box-shadow: none;
+  font-size: 0.72rem;
+}
+.md-typeset table:not([class]) th {
+  background: var(--surface-gray);
+  font-weight: 500;
+}
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  border-top: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   動く図（.ew）
+   色は「紺」と「グレー」だけ。
+   順伝播の値＝グレー、逆伝播の勾配＝紺、数式の行に対応する要素＝紺の太線
+   ============================================================ */
+.md-typeset .ew {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.8rem 1rem 1rem;
+  margin: 1.4rem 0 1.6rem;
+}
+
+.ew-bar { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; }
+.ew-toggle { display: flex; gap: 0; flex-wrap: wrap; }
+.md-typeset .ew-btn {
+  font: inherit;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.9rem;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.md-typeset .ew-btn:hover { color: var(--md-typeset-color); }
+.md-typeset .ew-btn[aria-pressed="true"] {
+  color: var(--main);
+  border-bottom: 2px solid var(--main);
+  font-weight: 500;
+}
+
+.ew-svg { width: 100%; height: auto; display: block; }
+.ew-svg text { font-family: var(--md-text-font-family); dominant-baseline: central; }
+.ew-t { font-size: 15px; fill: var(--md-typeset-color); }
+.ew-s { font-size: 13px; fill: var(--muted); }
+.ew-c { text-anchor: middle; }
+.ew-start { text-anchor: start; }
+.ew-end { text-anchor: end; }
+.ew-fwd { fill: var(--muted); }
+.ew-back { fill: var(--main); }
+.ew-muted { fill: var(--muted); }
+
+.ew-edge { stroke: var(--line-strong); stroke-width: 1; fill: none; transition: stroke 0.15s; }
+.ew-backmode .ew-edge { stroke: var(--main); stroke-opacity: 0.5; }
+.ew-node,
+.ew-node-in,
+.ew-node-loss { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1; }
+.ew-node-loss { fill: var(--surface-gray); }
+.ew-grid { stroke: var(--line); stroke-width: 1; }
+/* 曲線：f(x)＝文字色の実線、f′(x)＝紺の破線。点は同じ色 */
+.ew-curve-f { fill: none; stroke: var(--md-typeset-color); stroke-width: 1.6; }
+.ew-curve-d { fill: none; stroke: var(--main); stroke-width: 1.6; stroke-dasharray: 5 3; }
+.ew-dot-f { fill: var(--md-typeset-color); stroke: none; }
+.ew-dot-d { fill: var(--main); stroke: none; }
+.ew-bar-0, .ew-bar-1, .ew-bar-2 { fill: var(--line-strong); transition: fill 0.15s; }
+
+/* 数式の行に対応する図の要素を光らせる */
+.ew-svg .ew-hl { stroke: var(--main) !important; stroke-width: 2.5 !important; stroke-opacity: 1 !important; }
+.ew-svg rect.ew-hl[class*="ew-bar-"] { fill: var(--main); stroke: none !important; }
+
+/* 数式の行（左：式、右：代入した数値） */
+.ew-rows { margin: 0.6rem 0 0.8rem; }
+.ew-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  outline: none;
+  overflow-x: auto;
+}
+.ew-row:hover, .ew-row:focus-visible { background: var(--surface-gray); }
+.ew-num { color: var(--muted); }
+
+/* スライダー */
+.ew-sliders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.3rem 1.4rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+.ew-slider {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 2.6rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+/* 細い線と小さなつまみだけのスライダー */
+.ew-slider input {
+  width: 100%;
+  height: 14px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.ew-slider input::-webkit-slider-runnable-track { height: 1px; background: var(--line-strong); }
+.ew-slider input::-moz-range-track { height: 1px; background: var(--line-strong); }
+.ew-slider input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px; height: 11px; margin-top: -5px;
+  border-radius: 50%;
+  background: var(--main);
+  border: none;
+}
+.ew-slider input::-moz-range-thumb {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--main);
+  border: none;
+}
+.ew-slider input:focus-visible { outline: 1px dotted var(--main); outline-offset: 2px; }
+.ew-out { text-align: right; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 600px) {
+  .ew-row { grid-template-columns: minmax(0, 1fr); gap: 0.1rem; }
+}
