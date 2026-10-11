@@ -15,6 +15,7 @@ extra_css:
   - css/shared/tokens.css   # 共通（minna-design から sync.bat で同期。直接編集しない）
   - css/shared/base.css
   - css/shared/layout.css
+  - css/shared/components.css
   - css/note.css
 
 extra_javascript:
@@ -76,3 +77,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.arithmatex: # 数式は KaTeX で描画する（js/katex-init.js）
       generic: true
+
+extra:
+  # 「サイト運営者について」は tomo のサイトトップ（hotline と同じ。フッターのリンク先）
+  about_url: https://minnanosaiban.github.io/tomo/

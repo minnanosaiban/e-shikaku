@@ -1,0 +1,180 @@
+/* minna-design / components.css — 3サイト共通の部品（目次カード・フッターカード・著作権表記・シェアボタン）。
+   tokens.css・base.css・layout.css の後に読み込む。サイト側では編集しない（編集は minna-design）。 */
+
+/* 目次 2列グリッドカード */
+.toc-phase-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--md-link-color);
+  margin: 2rem 0 0.5rem 0;
+  letter-spacing: 0.04em;
+}
+
+.toc-grid {
+  display: grid;
+  width: 100%;   /* .center-container（flex + align-items:center）内で幅が縮まないよう明示 */
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0 0 0.4rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .toc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 罫線でなく背景色＋ホバー時のbox-shadowで区切る（2026-08-18、borderから変更） */
+.toc-card {
+  display: block;
+  padding: 0.75rem 1rem;
+  background: var(--surface-gray);
+  border-radius: 4px;
+  text-decoration: none !important;
+  color: var(--md-typeset-color) !important;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.toc-card:hover {
+  background-color: var(--md-default-fg-color--lightest);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  text-decoration: none !important;
+}
+
+.toc-card-num {
+  display: block;
+  font-size: 11px;
+  color: var(--md-link-color);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.toc-card-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--md-typeset-color);
+  line-height: 1.4;
+  margin-bottom: 0.2rem;
+}
+
+.toc-card-desc {
+  display: block;
+  font-size: 12px;
+  color: #70757a;
+  line-height: 1.5;
+}
+
+[data-md-color-scheme="slate"] .toc-card:hover {
+  background-color: rgba(77, 139, 204, 0.06);
+}
+
+[data-md-color-scheme="slate"] .toc-card-desc {
+  color: #aaaaaa;
+}
+
+/* =========================================================
+   フッターの紹介文＋一行リンク（全ページ共通）
+   2026-08-10：カードグリッド（株価チャート＆アプリ／PDF墨消しアプリ）を廃止し、
+   「運営者について」への一行リンクに縮小（旧ルールは git 履歴参照）。
+   2026-08-13：本文列（width-40=32rem centering）に揃える案から、サイドバーの項目・
+   ヘッダーのサイト名と同じ左端（グリッド左端＋.6rem）に揃える案に変更。
+   本文列はページによって中央の狭い列だったり左サイドバー分右にずれたりするが、
+   サイドバー・ヘッダーの左端はどのページでも同じ位置なので、そちらに合わせる方が
+   フッター（全ページ共通の帯）としては筋が通り、見た目のバランスも良い。
+   ========================================================= */
+.md-footer-cards {
+  /* 親の .md-footer-meta__inner が display:flex; justify-content:space-between のため、
+     幅指定が無いと .md-copyright と横並びのflexアイテムとして扱われ、中央寄せがズレる。
+     常に行全体を占有させて、コピーライト文はその下の行に折り返させる。
+     左右パディング0.4rem＋親(.md-footer-meta__inner)の0.2rem＝合計0.6rem。
+     これはサイドバーのナビ項目の左端（.md-nav__list/.md-nav__titleのpadding-left:.6rem。
+     サイドバー自体はグリッド左端に余白なく接している）と同じ値。 */
+  width: 100%;
+  padding: 1.2rem 0.4rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .md-footer-cards {
+    /* スマホはサイドバーが隠れて基準が無いため、従来どおり読みやすさ優先の余白のまま */
+    padding: 1rem 1rem 0;
+  }
+}
+
+/* カード群の上に置く紹介文。中央寄せではなく左端揃え（上のコメント参照）。
+   本文用の色（ほぼ黒）だとフッターの暗い背景で見えなくなるため、フッター用の色を明示。 */
+.footer-intro {
+  margin: 0 0 0.8rem;
+  color: var(--md-footer-fg-color--light);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.footer-intro a {
+  color: var(--md-footer-fg-color) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 一行リンク：紹介文と同じ左端揃え。リンク色はフッター文字色を明示
+   （本文用の --md-link-color は暗背景で見えなくなるため） */
+.footer-links-row {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-links-row a {
+  color: var(--md-footer-fg-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* コピーライト行（※の3行など）も footer-intro / footer-links-row と左端を揃える。
+   .md-copyright は .md-footer-cards の兄弟要素（別のflexアイテム）で、左右パディングを
+   自前で持たない。中央寄せの計算に頼ると画面幅によって結果が変わってしまう（実測済み）ため、
+   .md-footer-cards と全く同じ左右パディングを直接持たせて揃える。 */
+.md-copyright {
+  /* Materialは広い画面で .md-copyright{width:auto} に切り替える箇所があり、flexアイテムの
+     width:autoはshrink-to-fit（内容の一番短い行に幅が縮む）になるため width:100% を明示で固定。
+     margin/paddingの左右もMaterial既定(margin:auto .6rem)を打ち消し、footer-cardsと同じ値にする。 */
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+@media only screen and (max-width: 767px) {
+  .md-copyright {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* シェアボタン：サイトの青（リンク・タブ下線と同じアクションの色）を地色に（2026-08-20、無彩色チップから変更） */
+.x-share {
+  display: inline-block;
+  margin: 0;
+  padding: .35em .65em;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #FFFFFF !important;
+  background-color: var(--md-link-color);
+}
+
+.x-share:hover {
+  color: #FFFFFF !important;
+  background-color: var(--md-link-hover-color);
+}
+
+/* シェアボタンを囲む段落：既定の上下 1em を詰め、H1 のすぐ上に均等な余白で乗せる */
+.md-typeset p:has(.x-share) {
+  margin: 0 0 0.4rem 0;
+}
